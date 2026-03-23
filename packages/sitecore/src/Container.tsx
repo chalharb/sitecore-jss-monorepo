@@ -4,6 +4,7 @@ import {
   ComponentRendering,
   Placeholder,
 } from '@sitecore-jss/sitecore-jss-nextjs';
+import { cn } from '@repo/ui/lib/utils';
 
 interface ContainerProps {
   rendering: ComponentRendering & { params: ComponentParams };
@@ -12,7 +13,7 @@ interface ContainerProps {
 
 const DefaultContainer = (props: ContainerProps): JSX.Element => {
   const containerStyles = props?.params?.Styles ?? '';
-  const styles = `${props?.params?.GridParameters} ${containerStyles}`.trimEnd();
+  const styles = cn('component', 'container-default', props?.params?.GridParameters, containerStyles);
   const phKey = `container-${props?.params?.DynamicPlaceholderId}`;
   const id = props?.params?.RenderingIdentifier;
   const mediaUrlPattern = new RegExp(/mediaurl=\"([^"]*)\"/, 'i');
@@ -28,7 +29,7 @@ const DefaultContainer = (props: ContainerProps): JSX.Element => {
   }
 
   return (
-    <div className={`component container-default ${styles}`} id={id ? id : undefined}>
+    <div className={styles} id={id ? id : undefined}>
       <div className="component-content" style={backgroundStyle}>
         <div className="row">
           <Placeholder name={phKey} rendering={props.rendering} />

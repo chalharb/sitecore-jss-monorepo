@@ -1,5 +1,6 @@
 import { JSX } from 'react';
 import { Text, RichText, Field, withDatasourceCheck } from '@sitecore-jss/sitecore-jss-nextjs';
+import { Card, CardHeader, CardTitle, CardContent } from '@repo/ui/card';
 import { ComponentProps } from './types';
 
 type ContentBlockProps = ComponentProps & {
@@ -15,11 +16,16 @@ type ContentBlockProps = ComponentProps & {
  * JSS component that's useful.
  */
 const ContentBlock = ({ fields }: ContentBlockProps): JSX.Element => (
-  <div className="contentBlock">
-    <Text tag="h2" className="contentTitle" field={fields.heading} />
-
-    <RichText className="contentDescription" field={fields.content} />
-  </div>
+  <Card className="contentBlock">
+    <CardHeader>
+      <CardTitle>
+        <Text tag="h2" className="contentTitle" field={fields.heading} />
+      </CardTitle>
+    </CardHeader>
+    <CardContent>
+      <RichText className="contentDescription" field={fields.content} />
+    </CardContent>
+  </Card>
 );
 
 export default withDatasourceCheck()<ContentBlockProps>(ContentBlock);

@@ -12,12 +12,12 @@ class PackagesPlugin implements ComponentBuilderPlugin {
     config.components = [
       ...config.components,
       {
-        path: '@repo/sitecore-components/Container',
+        path: '@repo/sitecore-components/container',
         moduleName: 'Container',
         componentName: 'Container',
       },
       {
-        path: '@repo/sitecore-components/ContentBlock',
+        path: '@repo/sitecore-components/content-block',
         moduleName: 'ContentBlock',
         componentName: 'ContentBlock',
       },
