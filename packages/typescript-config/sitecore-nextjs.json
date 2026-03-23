@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "./nextjs.json",
+  "compilerOptions": {
+    "target": "ES5",
+    "moduleResolution": "Node",
+    "noUncheckedIndexedAccess": false,
+    "downlevelIteration": true,
+    "strictFunctionTypes": false,
+    "allowSyntheticDefaultImports": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "incremental": true,
+    "forceConsistentCasingInFileNames": false,
+    "types": ["node"]
+  }
+}
