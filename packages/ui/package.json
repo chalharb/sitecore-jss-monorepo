@@ -3,7 +3,14 @@
   "version": "0.0.0",
   "private": true,
   "exports": {
-    "./*": "./src/*.tsx"
+    "./*": "./src/*.tsx",
+    "./lib/*": "./src/lib/*.ts"
+  },
+  "typesVersions": {
+    "*": {
+      "*": ["./src/*.tsx"],
+      "lib/*": ["./src/lib/*.ts"]
+    }
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
@@ -20,7 +27,15 @@
     "typescript": "5.9.2"
   },
   "dependencies": {
+    "@radix-ui/react-dialog": "^1.1.14",
+    "@radix-ui/react-label": "^2.1.7",
+    "@radix-ui/react-separator": "^1.1.7",
+    "@radix-ui/react-slot": "^1.2.3",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.511.0",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react-dom": "^19.2.0",
+    "tailwind-merge": "^3.3.0"
   }
 }
