@@ -7,20 +7,21 @@ class PackagesPlugin implements ComponentBuilderPlugin {
   order = 0;
 
   exec(config: ComponentBuilderPluginConfig) {
-    /**
-     * You can specify components which you want to import from external/internal packages
-     * in format:
-     *  {
-     *    name: 'package name',
-     *    components: [
-     *      {
-     *        componentName: 'component name', // component rendering name,
-     *        moduleName: 'module name' // component name to import from the package
-     *      }
-     *    ]
-     *  }
-     */
     config.packages = [];
+
+    config.components = [
+      ...config.components,
+      {
+        path: '@repo/sitecore-components/Container',
+        moduleName: 'Container',
+        componentName: 'Container',
+      },
+      {
+        path: '@repo/sitecore-components/ContentBlock',
+        moduleName: 'ContentBlock',
+        componentName: 'ContentBlock',
+      },
+    ];
 
     return config;
   }
