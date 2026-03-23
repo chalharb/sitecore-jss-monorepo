@@ -4,14 +4,15 @@ import {
   ComponentRendering,
   Placeholder,
 } from '@sitecore-jss/sitecore-jss-nextjs';
+import { cn } from '@repo/ui/lib/utils';
 
-interface ComponentProps {
+interface ColumnSplitterProps {
   rendering: ComponentRendering & { params: ComponentParams };
   params: ComponentParams;
 }
 
-export const Default = (props: ComponentProps): JSX.Element => {
-  const styles = `${props?.params?.GridParameters ?? ''} ${props?.params?.Styles ?? ''}`.trimEnd();
+export const Default = (props: ColumnSplitterProps): JSX.Element => {
+  const styles = cn('row', 'component', 'column-splitter', props?.params?.GridParameters, props?.params?.Styles);
   const columnWidths = [
     props.params.ColumnWidth1,
     props.params.ColumnWidth2,
@@ -36,15 +37,15 @@ export const Default = (props: ComponentProps): JSX.Element => {
   const id = props.params.RenderingIdentifier;
 
   return (
-    <div className={`row component column-splitter ${styles}`} id={id ? id : undefined}>
+    <div className={styles} id={id ? id : undefined}>
       {enabledPlaceholders.map((ph, index) => {
         const phKey = `column-${ph}-{*}`;
-        const phStyles = `${columnWidths[+ph - 1]} ${columnStyles[+ph - 1] ?? ''}`.trimEnd();
+        const phStyles = cn(columnWidths[+ph - 1], columnStyles[+ph - 1]);
 
         return (
           <div key={index} className={phStyles}>
-            <div key={index} className="row">
-              <Placeholder key={index} name={phKey} rendering={props.rendering} />
+            <div className="row">
+              <Placeholder name={phKey} rendering={props.rendering} />
             </div>
           </div>
         );

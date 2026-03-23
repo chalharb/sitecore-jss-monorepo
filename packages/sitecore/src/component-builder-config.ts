@@ -1,5 +1,10 @@
 export const components = [
   {
+    path: '@repo/sitecore-components/column-splitter',
+    moduleName: 'ColumnSplitter',
+    componentName: 'ColumnSplitter',
+  },
+  {
     path: '@repo/sitecore-components/container',
     moduleName: 'Container',
     componentName: 'Container',
