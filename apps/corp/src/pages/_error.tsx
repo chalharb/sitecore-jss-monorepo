@@ -9,7 +9,7 @@ interface ErrorPageProps {
  * Rendered for 500 errors on both server and client. Used only in Production mode.
  * @link https://nextjs.org/docs/advanced-features/custom-error-page#more-advanced-error-page-customizing
  */
-const ErrorPage: NextPage<ErrorPageProps> = ({ statusCode }) => (
+const ErrorPage: NextPage<ErrorPageProps> = ({ statusCode }: ErrorPageProps) => (
   <>
     <Head>
       <title>Error</title>

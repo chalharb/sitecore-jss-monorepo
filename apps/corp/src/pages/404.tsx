@@ -25,7 +25,6 @@ const Custom404 = (props: SitecorePageProps): JSX.Element => {
       <SitecoreContext
         componentFactory={componentBuilder.getComponentFactory()}
         layoutData={props.layoutData}
-        
       >
         <Layout layoutData={props.layoutData} headLinks={props.headLinks} />
       </SitecoreContext>

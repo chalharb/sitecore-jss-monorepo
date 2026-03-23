@@ -37,7 +37,7 @@ export interface ComponentBuilderPlugin {
 */
 
 const defaultConfig: ComponentBuilderPluginConfig = {
-  watch: process.argv.some(arg => arg === '--watch'),
+  watch: process.argv.some((arg) => arg === '--watch'),
   packages: [],
   components: [],
 };

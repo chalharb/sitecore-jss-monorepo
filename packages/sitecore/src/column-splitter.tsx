@@ -1,10 +1,10 @@
-import { JSX } from 'react';
+import { JSX } from "react";
 import {
   ComponentParams,
   ComponentRendering,
   Placeholder,
-} from '@sitecore-jss/sitecore-jss-nextjs';
-import { cn } from '@repo/ui/lib/utils';
+} from "@sitecore-jss/sitecore-jss-nextjs";
+import { cn } from "@repo/ui/lib/utils";
 
 interface ColumnSplitterProps {
   rendering: ComponentRendering & { params: ComponentParams };
@@ -12,7 +12,13 @@ interface ColumnSplitterProps {
 }
 
 export const Default = (props: ColumnSplitterProps): JSX.Element => {
-  const styles = cn('row', 'component', 'column-splitter', props?.params?.GridParameters, props?.params?.Styles);
+  const styles = cn(
+    "row",
+    "component",
+    "column-splitter",
+    props?.params?.GridParameters,
+    props?.params?.Styles,
+  );
   const columnWidths = [
     props.params.ColumnWidth1,
     props.params.ColumnWidth2,
@@ -33,7 +39,7 @@ export const Default = (props: ColumnSplitterProps): JSX.Element => {
     props.params.Styles7,
     props.params.Styles8,
   ];
-  const enabledPlaceholders = props.params.EnabledPlaceholders.split(',');
+  const enabledPlaceholders = props.params.EnabledPlaceholders.split(",");
   const id = props.params.RenderingIdentifier;
 
   return (

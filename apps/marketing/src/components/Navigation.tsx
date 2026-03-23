@@ -25,7 +25,7 @@ type NavigationProps = {
   relativeLevel: number;
 };
 
-const getNavigationText = function(props: NavigationProps): JSX.Element | string {
+const getNavigationText = function (props: NavigationProps): JSX.Element | string {
   let text;
 
   if (props.fields.NavigationTitle) {

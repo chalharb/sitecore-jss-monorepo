@@ -1,7 +1,12 @@
-import { JSX } from 'react';
-import { Text, RichText, Field, withDatasourceCheck } from '@sitecore-jss/sitecore-jss-nextjs';
-import { Card, CardHeader, CardTitle, CardContent } from '@repo/ui/card';
-import { ComponentProps } from './types';
+import { JSX } from "react";
+import {
+  Text,
+  RichText,
+  Field,
+  withDatasourceCheck,
+} from "@sitecore-jss/sitecore-jss-nextjs";
+import { Card, CardHeader, CardTitle, CardContent } from "@repo/ui/card";
+import { ComponentProps } from "./types";
 
 type ContentBlockProps = ComponentProps & {
   fields: {
