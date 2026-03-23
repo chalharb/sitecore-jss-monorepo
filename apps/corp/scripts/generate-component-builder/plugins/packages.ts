@@ -1,4 +1,5 @@
 import { ComponentBuilderPlugin, ComponentBuilderPluginConfig } from '..';
+import { components as sitecoreComponents } from '@repo/sitecore-components/component-builder-config';
 
 /**
  * Provides custom packages configuration
@@ -8,23 +9,11 @@ class PackagesPlugin implements ComponentBuilderPlugin {
 
   exec(config: ComponentBuilderPluginConfig) {
     config.packages = [];
-
-    config.components = [
-      ...config.components,
-      {
-        path: '@repo/sitecore-components/container',
-        moduleName: 'Container',
-        componentName: 'Container',
-      },
-      {
-        path: '@repo/sitecore-components/content-block',
-        moduleName: 'ContentBlock',
-        componentName: 'ContentBlock',
-      },
-    ];
+    config.components = [...config.components, ...sitecoreComponents];
 
     return config;
   }
 }
 
 export const packagesPlugin = new PackagesPlugin();
+

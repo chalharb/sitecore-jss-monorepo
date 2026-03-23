@@ -4,12 +4,14 @@
   "private": true,
   "exports": {
     "./*": "./src/*.tsx",
-    "./types": "./src/types.ts"
+    "./types": "./src/types.ts",
+    "./component-builder-config": "./src/component-builder-config.ts"
   },
   "typesVersions": {
     "*": {
       "*": ["./src/*.tsx"],
-      "types": ["./src/types.ts"]
+      "types": ["./src/types.ts"],
+      "component-builder-config": ["./src/component-builder-config.ts"]
     }
   },
   "scripts": {
