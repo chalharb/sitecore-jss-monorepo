@@ -4,12 +4,14 @@
   "private": true,
   "exports": {
     "./*": "./src/*.tsx",
-    "./lib/*": "./src/lib/*.ts"
+    "./lib/*": "./src/lib/*.ts",
+    "./styles/*": "./src/styles/*.css"
   },
   "typesVersions": {
     "*": {
       "*": ["./src/*.tsx"],
-      "lib/*": ["./src/lib/*.ts"]
+      "lib/*": ["./src/lib/*.ts"],
+      "styles/*": ["./src/styles/*.css"]
     }
   },
   "scripts": {
