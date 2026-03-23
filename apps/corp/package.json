@@ -29,6 +29,7 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
+    "@repo/sitecore-components": "*",
     "@repo/ui": "*",
     "@sitecore-jss/sitecore-jss-nextjs": "~22.11.0",
     "bootstrap": "^5.1.3",

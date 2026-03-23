@@ -1,0 +1,9 @@
+{
+  "extends": "@repo/typescript-config/sitecore-nextjs.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "noEmit": true
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
+}
