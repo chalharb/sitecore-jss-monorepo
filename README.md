@@ -1,159 +1,146 @@
-# Turborepo starter
+# Monorepo
 
-This Turborepo starter is maintained by the Turborepo core team.
+Turborepo-based monorepo for Sitecore Next.js applications with shared UI components, configuration, and tooling.
 
-## Using this example
+## Structure
 
-Run the following command:
+### Apps
 
-```sh
-npx create-turbo@latest
-```
+- **`@acme/corp`** (`apps/corp`) - Corporate Sitecore JSS Next.js application (port 3000)
+- **`@acme/marketing`** (`apps/marketing`) - Marketing Sitecore JSS Next.js application (port 3001)
 
-## What's inside?
+### Packages
 
-This Turborepo includes the following packages/apps:
+- **`@repo/ui`** (`packages/ui`) - Shared React component library built on shadcn/ui. Exports components (Button, Card, Input, Label, Badge, Dialog, Separator), the `cn()` utility, and a shared Tailwind CSS theme.
+- **`@repo/sitecore-components`** (`packages/sitecore`) - Shared Sitecore JSS components (Container, ContentBlock, ColumnSplitter) and a component builder config for automatic registration.
+- **`@repo/eslint-config`** (`packages/eslint-config`) - Shared ESLint 9 flat configs: `base`, `next-js`, `react-internal`, and `sitecore-nextjs`.
+- **`@repo/typescript-config`** (`packages/typescript-config`) - Shared TypeScript configs: `base`, `nextjs`, `react-library`, and `sitecore-nextjs`.
 
-### Apps and Packages
+## Prerequisites
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+- Node.js >= 18
+- npm 11+
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
+## Getting Started
 
 ```sh
-cd my-turborepo
-turbo build
+npm install
 ```
 
-Without global `turbo`, use your package manager:
+## Scripts
+
+All commands are run from the repo root via Turborepo:
 
 ```sh
-cd my-turborepo
-npx turbo build
-yarn dlx turbo build
-pnpm exec turbo build
+# Build all apps and packages
+npm run build
+
+# Build a specific app
+npx turbo build --filter=@acme/corp
+
+# Start development servers (all apps)
+npm run dev
+
+# Start Sitecore connected mode (all apps)
+npm run start:connected
+
+# Start Sitecore connected mode (single app)
+npx turbo start:connected --filter=@acme/corp
+
+# Start production server (requires build first)
+npm run start:production
+
+# Lint all apps and packages
+npm run lint
+
+# Type check all apps and packages
+npm run check-types
+
+# Format code with Prettier
+npm run format
 ```
 
-You can build a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
+## Turbo Caching
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+Turborepo caches the output of cacheable tasks. Key cached tasks:
+
+- **`bootstrap`** - Generates Sitecore config, component builder, plugins, and metadata into `src/temp/` and `scripts/temp/`. Cached based on `scripts/`, `src/components/`, and `.env*` inputs.
+- **`build`** - Runs `next build`. Depends on `bootstrap` completing first. Caches `.next/` output.
+
+Non-cached persistent tasks (`dev`, `start:connected`, `start:production`) still benefit from cached `bootstrap` output -- turbo skips regeneration when inputs haven't changed.
+
+## Using Shared Packages
+
+### UI Components
+
+```tsx
+import { Button } from '@repo/ui/button';
+import { Card, CardHeader, CardTitle, CardContent } from '@repo/ui/card';
+import { cn } from '@repo/ui/lib/utils';
+```
+
+Import the shared Tailwind theme in your app's entrypoint:
+
+```tsx
+import '@repo/ui/styles/theme.css';
+```
+
+### Sitecore Components
+
+Components are automatically registered via the component builder config:
+
+```ts
+import { components as sitecoreComponents } from '@repo/sitecore-components/component-builder-config';
+```
+
+Or import individual components directly:
+
+```tsx
+import { Default as Container } from '@repo/sitecore-components/container';
+import ContentBlock from '@repo/sitecore-components/content-block';
+```
+
+### Adding shadcn Components
+
+From the `packages/ui` directory:
 
 ```sh
-turbo build --filter=docs
+npx shadcn@latest add <component-name>
 ```
 
-Without global `turbo`:
+The `components.json` is pre-configured to output into `src/`.
 
-```sh
-npx turbo build --filter=docs
-yarn exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
+### ESLint Config
+
+In your app's `eslint.config.mjs`:
+
+```js
+import { sitecoreNextJsConfig } from '@repo/eslint-config/sitecore-nextjs';
+
+export default sitecoreNextJsConfig;
 ```
 
-### Develop
+### TypeScript Config
 
-To develop all apps and packages, run the following command:
+In your app's `tsconfig.json`:
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo dev
+```json
+{
+  "extends": "@repo/typescript-config/sitecore-nextjs.json"
+}
 ```
 
-Without global `turbo`, use your package manager:
+## Environment Variables
 
-```sh
-cd my-turborepo
-npx turbo dev
-yarn exec turbo dev
-pnpm exec turbo dev
-```
+The following environment variables are declared in `turbo.json` as global dependencies (cache invalidates when they change):
 
-You can develop a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
+| Variable | Description |
+|---|---|
+| `NODE_ENV` | Node environment |
+| `FETCH_WITH` | Data fetching strategy (REST/GraphQL) |
+| `GRAPH_QL_SERVICE_RETRIES` | GraphQL retry count |
+| `DISABLE_SSG_FETCH` | Disable static generation fetching |
+| `EXPORT_MODE` | Enable static export mode |
+| `JSS_MODE` | JSS operating mode (connected/disconnected) |
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo dev --filter=web
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo dev --filter=web
-yarn exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-```
-
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo login
-```
-
-Without global `turbo`, use your package manager:
-
-```sh
-cd my-turborepo
-npx turbo login
-yarn exec turbo login
-pnpm exec turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo link
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo link
-yarn exec turbo link
-pnpm exec turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turborepo.dev/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.dev/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.dev/docs/reference/configuration)
-- [CLI Usage](https://turborepo.dev/docs/reference/command-line-reference)
+App-specific environment variables are configured via `.env` files in each app directory.
