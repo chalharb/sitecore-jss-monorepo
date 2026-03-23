@@ -2,10 +2,21 @@
   "$schema": "https://turborepo.dev/schema.json",
   "ui": "tui",
   "tasks": {
-    "build": {
-      "dependsOn": ["^build"],
+    "next:build": {
+      "dependsOn": ["^next:build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": [".next/**", "!.next/cache/**"]
+    },
+    "bootstrap": {
+      "dependsOn": ["^bootstrap"]
+    },
+    "start:connected": {
+      "cache": false,
+      "persistent": true
+    },
+    "start:production": {
+      "cache": false,
+      "persistent": true
     },
     "lint": {
       "dependsOn": ["^lint"]

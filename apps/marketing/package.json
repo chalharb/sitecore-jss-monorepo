@@ -71,7 +71,7 @@
     "jss": "jss",
     "lint": "eslint ./src/**/*.tsx ./src/**/*.ts ./scripts/**/*.ts",
     "next:build": "next build",
-    "next:dev": "cross-env NODE_OPTIONS='--inspect' next dev",
+    "next:dev": "cross-env NODE_OPTIONS='--inspect' next dev --port 3001",
     "next:start": "next start",
     "scaffold": "ts-node --project tsconfig.scripts.json scripts/scaffold-component/index.ts",
     "start:connected": "cross-env NODE_ENV=development npm-run-all --serial bootstrap --parallel next:dev start:watch-components",
