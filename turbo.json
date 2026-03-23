@@ -1,6 +1,14 @@
 {
   "$schema": "https://turborepo.dev/schema.json",
   "ui": "tui",
+  "globalEnv": [
+    "DISABLE_SSG_FETCH",
+    "EXPORT_MODE",
+    "FETCH_WITH",
+    "GRAPH_QL_SERVICE_RETRIES",
+    "JSS_MODE",
+    "NODE_ENV"
+  ],
   "tasks": {
     "bootstrap": {
       "inputs": [
