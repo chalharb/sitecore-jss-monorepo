@@ -2,19 +2,29 @@
   "$schema": "https://turborepo.dev/schema.json",
   "ui": "tui",
   "tasks": {
-    "next:build": {
-      "dependsOn": ["^next:build"],
+    "bootstrap": {
+      "inputs": [
+        "scripts/**",
+        "src/components/**",
+        ".env*"
+      ],
+      "outputs": [
+        "src/temp/**",
+        "scripts/temp/**"
+      ]
+    },
+    "build": {
+      "dependsOn": ["bootstrap", "^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": [".next/**", "!.next/cache/**"]
     },
-    "bootstrap": {
-      "dependsOn": ["^bootstrap"]
-    },
     "start:connected": {
+      "dependsOn": ["bootstrap"],
       "cache": false,
       "persistent": true
     },
     "start:production": {
+      "dependsOn": ["build"],
       "cache": false,
       "persistent": true
     },
@@ -25,6 +35,7 @@
       "dependsOn": ["^check-types"]
     },
     "dev": {
+      "dependsOn": ["bootstrap"],
       "cache": false,
       "persistent": true
     }
