@@ -1,4 +1,8 @@
-# Monorepo
+<p align="center">
+  <img src="docs/hero.jpg" alt="Turborepo + Sitecore Monorepo" width="100%" />
+</p>
+
+# Sitecore Monorepo Using Turborepo
 
 Turborepo-based monorepo for Sitecore Next.js applications with shared UI components, configuration, and tooling.
 
